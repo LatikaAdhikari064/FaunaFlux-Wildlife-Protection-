@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fauna Flux</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="page7.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+        <img src="logo.png" alt="Fauna Flux Logo">
+        <h1>Fauna Flux</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="http://127.0.0.1:3002/index.html">Home</a></li>
+            <li><a href="http://127.0.0.1:3002/page3.html">Population Metrics</a></li>
+            <li><a href="http://127.0.0.1:3002/page4.html">Behavior Analysis</a></li>
+            <li><a href="http://127.0.0.1:3002/index.html">Extinction Alert</a></li>
+            <li><a href="http://127.0.0.1:3002/page6.html">Community Engagement</a></li>
+            <li><a href="http://127.0.0.1:3002/page7.html" class="active">Climate Impact</a></li>
+            <li><a href="http://127.0.0.1:3002/page8.html">About Us</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input 
+      type="text" 
+      id="search-bar" 
+      placeholder="Search for a state..." 
+      onfocus="showDropdown()" 
+      onblur="hideDropdown()" 
+      oninput="filterDropdown()"
+    />
+    <div id="dropdown" class="dropdown-content">
+      <!-- List of states -->
+      <div class="dropdown-item">Gujarat</div>
+      <div class="dropdown-item">Maharashtra</div>
+      <div class="dropdown-item">Rajasthan</div>
+      <div class="dropdown-item">Karnataka</div>
+      <div class="dropdown-item">Tamil Nadu</div>
+      <div class="dropdown-item">Kerala</div>
+      <div class="dropdown-item">Punjab</div>
+    </div>
+  </div>
+
+  <main>
+    <!-- Climate Data Section -->
+    <section id="climate-data">
+      <h2>Climate Data</h2>
+      <div class="weather-grid">
+        <div class="weather-card">
+          <p><strong>Mon</strong></p>
+          <img src="https://static.vecteezy.com/system/resources/previews/010/434/057/original/partly-cloudy-color-icon-cloudy-weather-sun-with-clouds-weather-forecast-isolated-illustration-vector.jpg" alt="Partly Cloudy Icon" />
+          <p>High: 18°C</p>
+          <p>Low: 7°C</p>
+          <p>Weather: Partly Cloudy</p>
+        </div>
+        <div class="weather-card">
+          <p><strong>Tue</strong></p>
+          <img src="https://cdn4.iconfinder.com/data/icons/weather-flat-2/614/428_-_Cloudy-512.png" alt="Cloudy Icon" />
+          <p>High: 15°C</p>
+          <p>Low: 6°C</p>
+          <p>Weather: Cloudy</p>
+        </div>
+        <div class="weather-card">
+          <p><strong>Wed</strong></p>
+          <img src="https://cdn0.iconfinder.com/data/icons/flat-weather/512/Sunny-1024.png" alt="Sunny Icon" />
+          <p>High: 17°C</p>
+          <p>Low: 6°C</p>
+          <p>Weather: Sunny</p>
+        </div>
+        <div class="weather-card">
+          <p><strong>Thu</strong></p>
+          <img src="https://cdn4.iconfinder.com/data/icons/weather-flat-2/614/428_-_Cloudy-512.png" alt="Cloudy Icon" />
+          <p>High: 15°C</p>
+          <p>Low: 6°C</p>
+          <p>Weather: Cloudy</p>
+        </div>
+        <div class="weather-card">
+          <p><strong>Fri</strong></p>
+          <img src="https://cdn0.iconfinder.com/data/icons/flat-weather/512/Sunny-1024.png" alt="Sunny Icon" />
+          <p>High: 17°C</p>
+          <p>Low: 6°C</p>
+          <p>Weather: Sunny</p>
+        </div>
+        <div class="weather-card">
+          <p><strong>Sat</strong></p>
+          <img src="https://cdn0.iconfinder.com/data/icons/flat-weather/512/Sunny-1024.png" alt="Sunny Icon" />
+          <p>High: 17°C</p>
+          <p>Low: 6°C</p>
+          <p>Weather: Sunny</p>
+        </div>
+        <div class="weather-card">
+          <p><strong>Sun</strong></p>
+          <img src="https://cdn0.iconfinder.com/data/icons/flat-weather/512/Sunny-1024.png" alt="Sunny Icon" />
+          <p>High: 17°C</p>
+          <p>Low: 6°C</p>
+          <p>Weather: Sunny</p>
+        </div>
+        <!-- Repeat for other days -->
+      </div>
+    </section>
+
+    <!-- Strategies Section -->
+    <section id="strategies">
+      <h2>Strategies</h2>
+      <ul>
+          <li><a href="https://www.green.earth/blog/7-strategies-for-protecting-wildlife" target="_blank">Habitat Restoration: Restore degraded habitats, expand protected areas.</a></li>
+          <li><a href="https://gca.org/protecting-wildlife-in-a-changing-climate-four-powerful-adaptation-strategies/l" target="_blank">Climate-Smart Conservation Planning: Integrate climate projections into conservation plans.</a></li>
+          <li><a href="https://www.green.earth/blog/7-strategies-for-protecting-wildlife" target="_blank">Species Relocation: Relocate vulnerable species to suitable habitats.</a></li>
+          <li><a href="https://forestry.com/wildlife-management/biodiversity/strategies-for-effectivebiodiversity/" target="_blank">Climate-Resilient Infrastructure: Build climate-resilient infrastructure (e.g., sea walls, green roofs).</a></li>
+          <li><a href="https://www.trvst.world/biodiversity/conservation-strategies/" target="_blank">Community Engagement: Educate and involve local communities in conservation efforts.</a></li>
+      </ul>
+    </section>
+     
+  </main>
+
+  <footer>
+    <div class="footer-content">
+        <p>&copy; 2024 Fauna Flux. All Rights Reserved.</p>
+        <ul class="footer-links">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#privacy">Privacy Policy</a></li>
+            <li><a href="#terms">Terms of Service</a></li>
+        </ul>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="map.js"></script>
+  <script src="search.js"></script>
+</body>
+</html>

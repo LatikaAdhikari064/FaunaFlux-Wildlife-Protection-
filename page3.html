@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fauna Flux</title>
+    <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color:white;
+}
+/* Header styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #005f3c;
+    color: white;
+    margin: 5px;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo h1 {
+    margin-left: 10px;
+    font-size: 24px;
+    color: white;
+    
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+header nav ul li a.active {
+    text-decoration: underline;
+}
+a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Search Bar Styling */
+.search-container {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    height: 30px;
+}
+
+#search-bar:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    border-radius: 4px;
+    margin-top: 4px;
+}
+
+.dropdown-item {
+    color: #333;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #ddd;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Section Styling */
+.species-section {
+    max-width: 1200px;
+    padding: 20px;
+    text-align: center;
+    margin: 0 auto;
+    height: 600px;
+}
+
+.species-section h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 350px;
+}
+
+.species-grid {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.5s ease;
+    height: 370px;
+    width: 100%;
+}
+
+.species-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 300px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height:350px;
+}
+
+.species-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.species-info {
+    padding: 15px;
+    text-align: left;
+}
+
+.species-info span {
+    font-size: 12px;
+    color: #666;
+    display: block;
+}
+
+.species-info h2 {
+    font-size: 18px;
+    margin: 8px 0;
+    color: #333;
+}
+
+.status {
+    font-size: 14px;
+    color: #f44336;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-icon {
+    display: inline-block;
+    background-color: #f44336;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+/* Container for the Threatened Species section */
+.container {
+    text-align: center;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #9c1111;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    width:100%;
+}
+
+.container h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.container p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.species-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    width:100%;
+
+}
+
+.species-box {
+    background-color: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 1rem;
+    width: 120px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    
+}
+
+.species-box:hover {
+    transform: scale(1.05);
+}
+
+.species-box h2 {
+    font-size: 1.2rem;
+    color: #444;
+    margin-bottom: 0.5rem;
+}
+
+.species-box p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e63946;
+}
+
+.container button {
+    padding: 0.75rem 1.5rem;
+    margin-top: 1.5rem;
+    background-color: #e63946;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.container button:hover {
+    background-color: #d32f2f;
+}
+
+.footer-text {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+
+/* Arrow buttons */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1;
+}
+
+.left-arrow {
+    left: 0;
+}
+
+.right-arrow {
+    right: 0;
+}
+
+/* Main and Section Styling */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+section {
+    padding: 20px;
+    margin: 20px 0;
+    width: 80%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#locations-map {
+    width: 100%;
+    height: 400px;
+}
+
+.threat, .trend {
+    display: flex;
+    gap: 5px;
+}
+
+#extinction-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Footer Styling */
+footer {
+    background-color: #4d724d;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 1em;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-links li {
+    display: inline;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #76b983;
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Fauna Flux Logo">
+            <h1 >Fauna Flux</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="http://127.0.0.1:3002/index.html">Home</a></li>
+                <li><a href="http://127.0.0.1:3002/page3.html" class="active">Population Metrics</a></li>
+                <li><a href="http://127.0.0.1:3002/page4.html">Behavior Analysis</a></li>
+                <li><a href="http://127.0.0.1:3002/index.html">Extinction Alert</a></li>
+                <li><a href="http://127.0.0.1:3002/page6.html">Community Engagement</a></li>
+                <li><a href="http://127.0.0.1:3002/page7.html">Climate Impact</a></li>
+                <li><a href="http://127.0.0.1:3002/page8.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+<!-- Search Bar -->
+<div class="search-container">
+    <input 
+      type="text" 
+      id="search-bar" 
+      placeholder="Search for a state..." 
+      onfocus="showDropdown()" 
+      onblur="hideDropdown()" 
+      oninput="filterDropdown()"
+    />
+    <div id="dropdown" class="dropdown-content">
+      <!-- List of states -->
+      <div class="dropdown-item">Gujarat</div>
+      <div class="dropdown-item">Maharashtra</div>
+      <div class="dropdown-item">Rajasthan</div>
+      <div class="dropdown-item">Karnataka</div>
+      <div class="dropdown-item">Tamil Nadu</div>
+      <div class="dropdown-item">Kerala</div>
+      <div class="dropdown-item">Punjab</div>
+    </div>
+  </div>
+
+    <main>
+       
+     <!--card-->
+     <div class="species-section">
+        <h1>AMAZING SPECIES</h1>
+        <div class="carousel-container">
+            <button class="arrow left-arrow" onclick="slideLeft()">&#10094;</button>
+            <div class="species-grid">
+                <!-- Species Cards -->
+                <div class="species-card">
+                    <img src="https://i.pinimg.com/originals/78/f1/de/78f1de377ba040187ad726638b5b01fa.jpg" alt="Pinta Island Tortoise ">
+                    <div class="species-info">
+                        <span>Tortoise</span>
+                        <span>GLOBAL</span>
+                        <h2>Pinta Island Tortoise </h2>
+                        <p><i> Galápagos Islands, Ecuador</i></p>
+                        <p class="status">Extinct (Status Icon: Red)</p>
+                        <span class="status-icon">EN</span>
+                    </div>
+                </div>
+
+                <div class="species-card">
+                    <img src="https://www.nhm.ac.uk/content/dam/nhmwww/discover/baiji-river-dolphin/yangtze-finless-porpoises-dolphinarium-institute-hydrobiology-china-two-column.jpg.thumb.768.768.jpg" alt="Usambara Drumming Grasshopper">
+                    <div class="species-info">
+                        <span>Dolphin</span>
+                        <span>GLOBAL</span>
+                        <h2>Yangtze River Dolphin (Baiji)</h2>
+                        <p><i> Yangtze River, Chinas</i></p>
+                        <p class="status">Extinct (Status Icon: Red)n</p>
+                        <span class="status-icon">VU</span>
+                    </div>
+                </div>
+
+                <div class="species-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Diceros_bicornis_-_profile_-_Etosha_2014.jpg/1200px-Diceros_bicornis_-_profile_-_Etosha_2014.jpg" alt="Bornean Orangutan">
+                    <div class="species-info">
+                        <span>Rhinoceros</span>
+                        <span>GLOBAL</span>
+                        <h2> Sub-Saharan Africa</h2>
+                        <p><i>Western Black Rhinoceross</i></p>
+                        <p class="status">Decreasing</p>
+                        <span class="status-icon">CR</span>
+                    </div>
+                </div>
+
+                <div class="species-card">
+                    <img src="grants.png" alt="Grant's Golden Mole">
+                    <div class="species-info">
+                        <span>ANIMALIA - MAMMALIA</span>
+                        <span>GLOBAL</span>
+                        <h2>Grant's Golden Mole</h2>
+                        <p><i>Eremitalpa granti</i></p>
+                        <p class="status">Unknown</p>
+                        <span class="status-icon">LC</span>
+                    </div>
+                </div>
+
+                <!-- Additional Species Cards -->
+                <div class="species-card">
+                    <img src="mongo.png" alt="komdo dragon">
+                    <div class="species-info">
+                        <span>ANIMALIA - REPTILIA</span>
+                        <span>GLOBAL</span>
+                        <h2>Komodo Dragon</h2>
+                        <p><i>Varanus komodoensis</i></p>
+                        <p class="status">Decreasing</p>
+                        <span class="status-icon">VU</span>
+                    </div>
+                </div>
+
+                <div class="species-card">
+                    <img src="siberian.png" alt="Siberian tiger">
+                    <div class="species-info">
+                        <span>ANIMALIA - MAMMALIA</span>
+                        <span>GLOBAL</span>
+                        <h2>Siberian Tiger</h2>
+                        <p><i>Panthera tigris altaica</i></p>
+                        <p class="status">Decreasing</p>
+                        <span class="status-icon">EN</span>
+                    </div>
+                </div>
+            </div>
+            <button class="arrow right-arrow" onclick="slideRight()">&#10095;</button>
+        </div>
+    </div>
+    <!--extict section-->
+
+<!-- Newly added Threatened Species section -->
+<div class="container">
+    <h1>More than 46,300 species are threatened with extinction</h1>
+    <p>That is still 28% of all assessed species.</p>
+
+    <div class="species-container">
+        <div class="species-box">
+            <h2>AMPHIBIANS</h2>
+            <p>41%</p>
+        </div>
+        <div class="species-box">
+            <h2>MAMMALS</h2>
+            <p>26%</p>
+        </div>
+        <div class="species-box">
+            <h2>SHARKS & RAYS</h2>
+            <p>37%</p>
+        </div>
+        <div class="species-box">
+            <h2>REEF CORALS</h2>
+            <p>44%</p>
+        </div>
+        <div class="species-box">
+            <h2>REPTILES</h2>
+            <p>21%</p>
+        </div>
+    </div>
+
+    <button>Take action</button>
+    <p class="footer-text">Help us make The IUCN Red List a more complete barometer of life.</p>
+</div>
+
+    
+    <main>
+        <div class="threat">
+            <section id="Extinction_Threat">
+                <h2>Species with Threat of Extinction</h2>
+                <p>1. Mammals face the highest threat, with 200 species currently endangered, highlighting the critical need for conservation in this group, often due to habitat loss, poaching, and climate change.</p>
+                <p>2. Birds are the second most threatened group, with 150 species at risk, driven by factors like deforestation, pollution, and climate impacts affecting migration and nesting patterns.</p>
+                <p>3. Fish have 120 species threatened, largely due to overfishing, habitat destruction, and water pollution, which disrupt marine and freshwater ecosystems.</p>
+                <p>4. Reptiles face significant risks, with 80 species endangered. Habitat alteration, particularly in tropical and arid environments, plays a major role in their decline.</p>
+                <p>5. Invertebrates, despite being less publicized, have 90 species threatened, signaling ecosystem health issues since many invertebrates play vital roles in soil health and pollination.</p>
+                <p>6. Amphibians show high vulnerability, with 70 species threatened. This group is highly sensitive to environmental changes, with pollution and disease outbreaks like chytridiomycosis being major factors.</p>
+            </section>
+            <section id="locations-map">
+                <h2>Locations</h2>
+                <div id="map"></div>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Fauna Flux. All Rights Reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#privacy">Privacy Policy</a></li>
+                <li><a href="#terms">Terms of Service</a></li>
+            </ul>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fauna Flux</title>
+    <link rel="stylesheet" href="page4.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Fauna Flux Logo">
+            <h1 >Fauna Flux</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="http://127.0.0.1:3002/index.html">Home</a></li>
+                <li><a href="http://127.0.0.1:3002/page3.html">Population Metrics</a></li>
+                <li><a href="http://127.0.0.1:3002/page4.html" class="active">Behavior Analysis</a></li>
+                <li><a href="http://127.0.0.1:3002/index.html">Extinction Alert</a></li>
+                <li><a href="http://127.0.0.1:3002/page6.html">Community Engagement</a></li>
+                <li><a href="http://127.0.0.1:3002/page7.html">Climate Impact</a></li>
+                <li><a href="http://127.0.0.1:3002/page8.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+<!-- Search Bar -->
+<div class="search-container">
+    <input 
+      type="text" 
+      id="search-bar" 
+      placeholder="Search for a state..." 
+      onfocus="showDropdown()" 
+      onblur="hideDropdown()" 
+      oninput="filterDropdown()"
+    />
+    <div id="dropdown" class="dropdown-content">
+      <!-- List of states -->
+      <div class="dropdown-item">Gujarat</div>
+      <div class="dropdown-item">Maharashtra</div>
+      <div class="dropdown-item">Rajasthan</div>
+      <div class="dropdown-item">Karnataka</div>
+      <div class="dropdown-item">Tamil Nadu</div>
+      <div class="dropdown-item">Kerala</div>
+      <div class="dropdown-item">Punjab</div>
+    </div>
+  </div>
+  <section id="migration">
+    <h2>Animal's Behavior</h2>
+    <p>Animal behavior encompasses actions like hunting, foraging, mating, migration, and social interactions that help animals survive and thrive. It is shaped by both genetic and environmental factors, influencing how animals respond to food availability, predators, and seasonal changes.</p>
+
+    <h4>Significance of Studying Animal Behavior</h4>
+    <p>1. Conservation Efforts: By studying animal behavior, scientists can make informed decisions to protect endangered species, safeguard habitats, and maintain biodiversity.<br>2. Ecosystem Health: Animals play key roles in ecosystems, often as predators, prey, or pollinators. Studying their behavior helps us understand ecological balance and how different species support each other.<br>3. Evolutionary Insights: Animal behavior reveals how species have evolved to adapt to specific environmental pressures, giving insight into natural selection and survival strategies.</p>
+  </section>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Fauna Flux. All Rights Reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#privacy">Privacy Policy</a></li>
+                <li><a href="#terms">Terms of Service</a></li>
+            </ul>
+        </div>
+    </footer>
+    
+    <script src="page4.js"></script>
+</body>
+</html>
